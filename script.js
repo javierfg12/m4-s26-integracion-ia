@@ -28,5 +28,8 @@ function calcular() {
   document.getElementById('r_ahorro_bruto').textContent   = fmt(ahorro_bruto) + ' €/mes';
 }
 
-// Calcular automáticamente al cargar
-window.addEventListener('DOMContentLoaded', calcular);
+window.addEventListener('DOMContentLoaded', function () {
+  calcular();
+  var btn = document.getElementById('btn-calcular');
+  if (btn) btn.addEventListener('click', calcular);
+});

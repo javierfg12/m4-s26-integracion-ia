@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M4-S26 · Diagnóstico IA en Atención al Cliente</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <span class="tag">M4-S26</span>
+      <h1>Diagnóstico Técnico-Económico<br><em>Integración de IA</em></h1>
+      <p class="subtitle">Análisis de integración de IA generativa en atención al cliente B2B</p>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- SECCIÓN 1: DATOS DE ENTRADA -->
+    <section id="datos" class="card">
+      <div class="section-header">
+        <span class="num">01</span>
+        <h2>Datos del Caso</h2>
+      </div>
+      <div class="grid-2">
+        <div class="field-group">
+          <label>Tickets mensuales</label>
+          <input type="number" id="tickets" value="12000" />
+        </div>
+        <div class="field-group">
+          <label>Consultas IA por ticket</label>
+          <input type="number" id="consultas_ticket" value="2" />
+        </div>
+        <div class="field-group">
+          <label>Tokens de entrada por consulta</label>
+          <input type="number" id="tokens_entrada" value="2500" />
+        </div>
+        <div class="field-group">
+          <label>Tokens de salida por consulta</label>
+          <input type="number" id="tokens_salida" value="600" />
+        </div>
+        <div class="field-group">
+          <label>Tiempo actual por ticket (min)</label>
+          <input type="number" id="tiempo_actual" value="12" />
+        </div>
+        <div class="field-group">
+          <label>Tiempo esperado con IA (min)</label>
+          <input type="number" id="tiempo_ia" value="8" />
+        </div>
+        <div class="field-group">
+          <label>Coste hora soporte (€)</label>
+          <input type="number" id="coste_hora" value="22" />
+        </div>
+      </div>
+      <button class="btn-calcular" onclick="calcular()">Calcular resultados →</button>
+    </section>
+
+    <!-- SECCIÓN 2: CÁLCULOS -->
+    <section id="calculos" class="card">
+      <div class="section-header">
+        <span class="num">02</span>
+        <h2>Cálculos Básicos</h2>
+      </div>
+      <table class="tabla-calculos">
+        <thead>
+          <tr><th>Concepto</th><th>Fórmula</th><th>Resultado</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Consultas mensuales</td>
+            <td>tickets × consultas/ticket</td>
+            <td id="r_consultas" class="result">—</td>
+          </tr>
+          <tr>
+            <td>Tokens de entrada mensuales</td>
+            <td>consultas × tokens entrada</td>
+            <td id="r_tokens_entrada" class="result">—</td>
+          </tr>
+          <tr>
+            <td>Tokens de salida mensuales</td>
+            <td>consultas × tokens salida</td>
+            <td id="r_tokens_salida" class="result">—</td>
+          </tr>
+          <tr>
+            <td>Tiempo ahorrado por ticket</td>
+            <td>tiempo actual − tiempo con IA</td>
+            <td id="r_ahorro_ticket" class="result">—</td>
+          </tr>
+          <tr>
+            <td>Minutos ahorrados al mes</td>
+            <td>tickets × minutos ahorrados</td>
+            <td id="r_minutos" class="result">—</td>
+          </tr>
+          <tr>
+            <td>Horas ahorradas al mes</td>
+            <td>minutos ÷ 60</td>
+            <td id="r_horas" class="result">—</td>
+          </tr>
+          <tr class="highlight-row">
+            <td><strong>Ahorro humano bruto</strong></td>
+            <td>horas × coste/hora</td>
+            <td id="r_ahorro_bruto" class="result big">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SECCIÓN 3: DESAFÍOS -->
+    <section id="desafios" class="card">
+      <div class="section-header">
+        <span class="num">03</span>
+        <h2>Desafíos Identificados</h2>
+      </div>
+      <div class="desafios-grid">
+        <div class="desafio-col">
+          <h3>🔧 Técnicos</h3>
+          <ul>
+            <li>Integración con CRM, ERP y portal de tickets mediante API</li>
+            <li>Latencia máxima de 4 segundos con 24.000 consultas/mes</li>
+            <li>Trazabilidad de cada consulta IA para auditoría</li>
+          </ul>
+        </div>
+        <div class="desafio-col">
+          <h3>💶 Económicos</h3>
+          <ul>
+            <li>Coste variable por tokens escala con el volumen de tickets</li>
+            <li>Costes ocultos: mantenimiento, configuración y formación</li>
+            <li>El ahorro bruto no garantiza ahorro neto sin análisis de costes IA</li>
+          </ul>
+        </div>
+        <div class="desafio-col">
+          <h3>🔒 Datos personales / Seguridad</h3>
+          <ul>
+            <li>Los tickets contienen PII (datos personales de clientes)</li>
+            <li>Necesidad de anonimizar antes de enviar datos a la IA</li>
+            <li>Control de acceso y logs de qué datos se enviaron</li>
+          </ul>
+        </div>
+        <div class="desafio-col">
+          <h3>🏢 Organizativos</h3>
+          <ul>
+            <li>Resistencia del equipo de soporte al cambio</li>
+            <li>Redefinir el rol humano: de responder a revisar y validar</li>
+            <li>Formación de 35 agentes en el nuevo flujo de trabajo</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: MATRIZ COMPARATIVA -->
+    <section id="matriz" class="card">
+      <div class="section-header">
+        <span class="num">04</span>
+        <h2>Matriz Comparativa</h2>
+      </div>
+      <div class="tabla-scroll">
+      <table class="tabla-matriz">
+        <thead>
+          <tr>
+            <th>Criterio</th>
+            <th>API Externa</th>
+            <th>Cloud Gestionado</th>
+            <th>Opción mejor</th>
+            <th>Motivo breve</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Coste inicial</td>
+            <td><span class="badge verde">Bajo</span></td>
+            <td><span class="badge rojo">Alto</span></td>
+            <td>API externa</td>
+            <td>Menor inversión para un piloto</td>
+          </tr>
+          <tr>
+            <td>Coste al escalar</td>
+            <td><span class="badge rojo">Alto</span></td>
+            <td><span class="badge amarillo">Medio</span></td>
+            <td>Cloud gestionado</td>
+            <td>Más predecible con 60M tokens/mes</td>
+          </tr>
+          <tr>
+            <td>Facilidad de implantación</td>
+            <td><span class="badge verde">Alta</span></td>
+            <td><span class="badge amarillo">Media</span></td>
+            <td>API externa</td>
+            <td>Más rápida para arrancar el piloto</td>
+          </tr>
+          <tr>
+            <td>Protección de datos</td>
+            <td><span class="badge rojo">Baja</span></td>
+            <td><span class="badge verde">Alta</span></td>
+            <td>Cloud gestionado</td>
+            <td>Tickets con PII requieren entorno controlado</td>
+          </tr>
+          <tr>
+            <td>Trazabilidad</td>
+            <td><span class="badge rojo">Baja</span></td>
+            <td><span class="badge verde">Alta</span></td>
+            <td>Cloud gestionado</td>
+            <td>Requisito alto de trazabilidad en el caso</td>
+          </tr>
+          <tr>
+            <td>Latencia</td>
+            <td><span class="badge verde">Baja</span></td>
+            <td><span class="badge amarillo">Media</span></td>
+            <td>API externa</td>
+            <td>Más opciones para cumplir los 4 segundos</td>
+          </tr>
+          <tr>
+            <td>Dependencia del proveedor</td>
+            <td><span class="badge rojo">Alta</span></td>
+            <td><span class="badge amarillo">Media</span></td>
+            <td>Cloud gestionado</td>
+            <td>Menor riesgo de dependencia nueva</td>
+          </tr>
+          <tr>
+            <td>Control técnico</td>
+            <td><span class="badge rojo">Bajo</span></td>
+            <td><span class="badge verde">Alto</span></td>
+            <td>Cloud gestionado</td>
+            <td>Necesario para revisión humana obligatoria</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: MINI-RAID -->
+    <section id="raid" class="card">
+      <div class="section-header">
+        <span class="num">05</span>
+        <h2>Mini-RAID</h2>
+      </div>
+      <div class="tabla-scroll">
+      <table class="tabla-raid">
+        <thead>
+          <tr><th>Tipo</th><th>Elemento identificado</th><th>Impacto</th><th>Acción propuesta</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge rojo">Riesgo</span></td>
+            <td>Fuga de datos personales al enviar tickets a IA externa</td>
+            <td><span class="badge rojo">Alto</span></td>
+            <td>Anonimizar PII antes de cada consulta; auditoría trimestral</td>
+          </tr>
+          <tr>
+            <td><span class="badge amarillo">Supuesto</span></td>
+            <td>Se asume que la IA reduce el tiempo de 12 a 8 min/ticket</td>
+            <td><span class="badge rojo">Alto</span></td>
+            <td>Validar con piloto de 1 mes antes de escalar</td>
+          </tr>
+          <tr>
+            <td><span class="badge azul">Incidencia</span></td>
+            <td>El equipo gestiona tickets sin estándar de formato</td>
+            <td><span class="badge amarillo">Medio</span></td>
+            <td>Normalizar plantilla de ticket antes del despliegue</td>
+          </tr>
+          <tr>
+            <td><span class="badge morado">Dependencia</span></td>
+            <td>El proceso depende de la disponibilidad del proveedor IA</td>
+            <td><span class="badge rojo">Alto</span></td>
+            <td>Protocolo de fallback manual para el equipo de soporte</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 6: DECISIÓN FINAL -->
+    <section id="decision" class="card decision-card">
+      <div class="section-header">
+        <span class="num">06</span>
+        <h2>Decisión Final</h2>
+      </div>
+      <div class="decision-box">
+        <div class="decision-item">
+          <span class="decision-label">Recomendación</span>
+          <span class="decision-value highlight">✅ Cloud Gestionado (Alternativa B)</span>
+        </div>
+        <div class="decision-item">
+          <span class="decision-label">Motivo principal</span>
+          <span class="decision-value">Ofrece mejor trazabilidad, mayor control sobre datos personales y dependencia más controlada al integrarse con el proveedor cloud existente. Con 60M tokens de entrada mensuales, el coste variable de una API externa puede dispararse sin control.</span>
+        </div>
+        <div class="decision-item">
+          <span class="decision-label">Principal riesgo</span>
+          <span class="decision-value">Exposición de datos personales (PII) contenidos en los tickets. Cualquier brecha tendría impacto legal y reputacional bajo RGPD.</span>
+        </div>
+        <div class="decision-item">
+          <span class="decision-label">Control propuesto</span>
+          <span class="decision-value">Capa de anonimización automática antes de enviar texto a la IA + registro de logs por consulta con ID de ticket + revisión periódica de accesos.</span>
+        </div>
+        <div class="decision-item">
+          <span class="decision-label">Métrica de éxito</span>
+          <span class="decision-value">Tiempo medio de respuesta baja de 12 a 8 minutos o menos en ≥80% de los tickets durante los primeros 3 meses del piloto, sin incidencias de seguridad registradas.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 7: REFLEXIÓN -->
+    <section id="reflexion" class="card">
+      <div class="section-header">
+        <span class="num">07</span>
+        <h2>Reflexión Breve</h2>
+      </div>
+      <p class="reflexion-texto">
+        Integrar IA en un sistema de información no es solo una decisión técnica: implica equilibrar costes visibles con costes ocultos, proteger datos personales que viajan por sistemas externos, y redefinir el trabajo humano. En este caso, el ahorro bruto de 17.600 €/mes parece atractivo, pero solo tiene sentido si los costes de tokens, configuración y mantenimiento son menores. La trazabilidad y la protección de PII no son opcionales: condicionan qué arquitectura es viable. La tecnología solo aporta valor si los procesos y las personas están preparados para usarla con control.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>M4-S26 · Diseño de Sistemas de Información · Diagnóstico Técnico-Económico de Integración IA</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
